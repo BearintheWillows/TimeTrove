@@ -4,6 +4,7 @@
 @using Microsoft.AspNetCore.Authentication
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.WebUtilities
+@using Serilog
 @using TimeTrove.Data
 
 @inject SignInManager<ApplicationUser> SignInManager
@@ -13,18 +14,19 @@
 
 <PageTitle>Log in</PageTitle>
 
-<h1>Log in</h1>
-<FluentGrid>
+<FluentGrid Justify="JustifyContent.Center">
     <FluentGridItem xs="8" sm="4">
         <StatusMessage Message="@errorMessage"/>
         <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login">
             <DataAnnotationsValidator/>
-            <h2>Use a local account to log in.</h2>
+            <div style="display: flex; justify-content: center;">
+                <h2 style="font-size: 2.5rem; padding-top: 20px">Log In</h2>
+            </div>
             <hr/>
             <FluentValidationSummary class="text-danger" role="alert"/>
             <FluentStack Orientation="Orientation.Vertical">
-                <FluentTextField Name="Input.Email" @bind-Value="Input.Email" AutoComplete="username" Required="true" Placeholder="name@example.com" Label="Email" Style="width: 100%"/>
-                <ValidationMessage For="() => Input.Email" class="text-danger"/>
+                <FluentTextField Name="Input.UserName" @bind-Value="Input.UserName" AutoComplete="username" Required="true" Placeholder="JoeBlogs123" Label="UserName" Style="width: 100%"/>
+                <ValidationMessage For="() => Input.UserName" class="text-danger"/>
                 <FluentTextField type="password" Name="Input.Password" @bind-Value="Input.Password" AutoComplete="current-password" Required="true" Placeholder="password" Label="Password" Style="width: 100%"/>
                 <ValidationMessage For="() => Input.Password" class="text-danger"/>
                 <FluentCheckbox Name="Input.RememberMe" @bind-Value="Input.RememberMe" Label="Remember me"/>
@@ -42,11 +44,6 @@
                 </div>
             </FluentStack>
         </EditForm>
-    </FluentGridItem>
-    <FluentGridItem xs="12" sm="8">
-        <h3>Use another service to log in.</h3>
-        <hr/>
-        <ExternalLoginPicker/>
     </FluentGridItem>
 </FluentGrid>
 
@@ -72,10 +69,10 @@
     {
         // This doesn't count login failures towards account lockout
         // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-        var result = await SignInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+        var result = await SignInManager.PasswordSignInAsync(Input.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
         if (result.Succeeded)
         {
-            Logger.LogInformation("User logged in.");
+            Log.Information("User logged in.");
             RedirectManager.RedirectTo(ReturnUrl);
         }
         else if (result.RequiresTwoFactor)
@@ -97,7 +94,7 @@
 
     private sealed class InputModel
     {
-        [Required] [EmailAddress] public string Email { get; set; } = "";
+        [Required]  public string UserName { get; set; } = "";
 
         [Required]
         [DataType(DataType.Password)]

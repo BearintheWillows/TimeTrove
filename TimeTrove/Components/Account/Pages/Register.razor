@@ -17,14 +17,14 @@
 
 <PageTitle>Register</PageTitle>
 
-<h1>Register</h1>
-
-<FluentGrid>
+<FluentGrid Justify="JustifyContent.Center">
     <FluentGridItem xs="8" sm="4">
         <StatusMessage Message="@Message"/>
         <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
             <DataAnnotationsValidator/>
-            <h2>Create a new account.</h2>
+            <div style="display: flex; justify-content: center;">
+                <h2 style="font-size: 2.5rem; padding-top: 20px">Register</h2>
+            </div>
             <hr/>
             <FluentValidationSummary class="text-danger" role="alert"/>
             <FluentStack Orientation="Orientation.Vertical">
@@ -37,11 +37,6 @@
                 <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width: 100%">Log in</FluentButton>
             </FluentStack>
         </EditForm>
-    </FluentGridItem>
-    <FluentGridItem xs="12" sm="8">
-        <h3>Use another service to log in.</h3>
-        <hr/>
-        <ExternalLoginPicker/>
     </FluentGridItem>
 </FluentGrid>
 
