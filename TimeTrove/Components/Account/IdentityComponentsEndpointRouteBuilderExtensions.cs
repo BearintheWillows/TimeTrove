@@ -9,6 +9,7 @@ using Microsoft.Extensions.Primitives;
 using TimeTrove.Components.Account.Pages;
 using TimeTrove.Components.Account.Pages.Manage;
 using TimeTrove.Data;
+using TimeTrove.Data.Models;
 
 namespace Microsoft.AspNetCore.Routing;
 

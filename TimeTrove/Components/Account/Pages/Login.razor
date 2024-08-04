@@ -1,10 +1,13 @@
 ﻿@page "/Account/Login"
+@attribute [AllowAnonymous]
 
 @using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.WebUtilities
 @using Serilog
+@using TimeTrove.Data.Models
 @using TimeTrove.Data
 
 @inject SignInManager<ApplicationUser> SignInManager

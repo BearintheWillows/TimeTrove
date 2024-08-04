@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using TimeTrove.Client;
 using TimeTrove.Data;
+using TimeTrove.Data.Models;
 
 namespace TimeTrove.Components.Account;
 

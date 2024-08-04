@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using TimeTrove.Data;
+using TimeTrove.Data.Models;
 
 namespace TimeTrove.Components.Account;
 

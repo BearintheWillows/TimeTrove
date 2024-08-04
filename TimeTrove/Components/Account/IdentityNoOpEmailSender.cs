@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using TimeTrove.Data;
+using TimeTrove.Data.Models;
 
 namespace TimeTrove.Components.Account;
 

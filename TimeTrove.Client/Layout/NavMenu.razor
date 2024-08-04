@@ -4,28 +4,27 @@
 @implements IDisposable
 
 @inject NavigationManager NavigationManager
-
-<nav>
-    <FluentNavMenu Width="250" Collapsible="true" Title="Custom navigation menu">
-        <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icon.FromImageUrl("/images/home.svg")" IconColor="Color.Accent">Home</FluentNavLink>
-        <FluentNavLink Href="auth" Icon="@Icon.FromImageUrl("/images/authrequired.svg")" IconColor="Color.Accent">Auth Required</FluentNavLink>
-        <AuthorizeView>
-            <Authorized>
-                <FluentNavLink Href="Account/Manage">@context.User.Identity?.Name</FluentNavLink>
-                <FluentNavLink Href="Account">Bank Accounts</FluentNavLink>
-                <form action="Account/Logout" method="post">
-                    <AntiforgeryToken/>
-                    <input type="hidden" name="ReturnUrl" value="@currentUrl"/>
-                    <FluentButton Type="ButtonType.Submit" Style="width: 100%;">Logout</FluentButton>
-                </form>
-            </Authorized>
-            <NotAuthorized>
-                <FluentNavLink Href="Account/Register">Register</FluentNavLink>
-                <FluentNavLink Href="Account/Login">Login</FluentNavLink>
-            </NotAuthorized>
-        </AuthorizeView>
-    </FluentNavMenu>
-</nav>
+<AuthorizeView>
+    <Authorized>
+    <nav>
+        <FluentNavMenu Width="250" Collapsible="true" Title="Custom navigation menu">
+        
+            <FluentNavLink Href="Account/Manage">@context.User.Identity?.Name</FluentNavLink>
+            <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icon.FromImageUrl("/images/home.svg")" IconColor="Color.Accent">Home</FluentNavLink>
+            <FluentNavLink Href="auth" Icon="@Icon.FromImageUrl("/images/authrequired.svg")" IconColor="Color.Accent">Auth Required</FluentNavLink>
+            <FluentNavLink Href="Account">Bank Accounts</FluentNavLink>
+            <form action="Account/Logout" method="post">
+                <AntiforgeryToken/>
+                <input type="hidden" name="ReturnUrl" value="@currentUrl"/>
+                <FluentButton Type="ButtonType.Submit" Style="width: 100%;">Logout</FluentButton>
+            </form>
+        </FluentNavMenu>
+    </nav>
+    </Authorized>
+    <NotAuthorized>
+        
+    </NotAuthorized>
+</AuthorizeView>
 
 
 @code {

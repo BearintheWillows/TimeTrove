@@ -8,6 +8,8 @@ using TimeTrove.Client.Pages;
 using TimeTrove.Components;
 using TimeTrove.Components.Account;
 using TimeTrove.Data;
+using TimeTrove.Data.Models;
+using TimeTrove.Services;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -29,8 +31,7 @@ try
         .WriteTo.Console());
     
     Log.Information("Serilog Configured!");
-
-
+    
 // Add services to the container.
     builder.Services.AddRazorComponents()
         .AddInteractiveServerComponents()
@@ -61,8 +62,10 @@ try
         .AddEntityFrameworkStores<ApplicationDbContext>()
         .AddSignInManager()
         .AddDefaultTokenProviders();
-
+    builder.Services.AddHttpClient();
+    builder.Services.AddControllers();
     builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+    builder.Services.AddScoped<IBankAccountService, BankAccountService>();
     
     Log.Information("About to build...!");
 
@@ -97,6 +100,7 @@ try
 
 // Add additional endpoints required by the Identity /Account Razor components.
     app.MapAdditionalIdentityEndpoints();
+    app.MapDefaultControllerRoute();
     
     Log.Information("Seeding First User");
     using (var scope = app.Services.CreateScope())

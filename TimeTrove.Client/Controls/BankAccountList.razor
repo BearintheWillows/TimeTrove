@@ -1,0 +1,24 @@
+﻿@using TimeTrove.Client.Models
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+
+<ul>
+    @foreach (var account in bankAccounts)
+    {
+        <li>@account.Name | @account.BalanceStr</li>
+    } 
+</ul>
+
+
+@code {
+    private List<BankAccountDTO>? bankAccounts = [];
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await HttpClient.GetFromJsonAsync<List<BankAccountDTO>>(NavigationManager.BaseUri + "api/BankAccount");
+
+        if (response.Count > 0)
+        {
+            bankAccounts = response;
+        }
+    }
+}
