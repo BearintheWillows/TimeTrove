@@ -1,0 +1,27 @@
+﻿.calendar-day {
+    height: 100%;
+    width: 100%;
+    contain: content;
+    border-radius: 10px;
+    border: 1px solid black;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.1);
+    padding: 3px 10px 15px 10px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    transition: transform .3s;
+}
+
+.calendar-day:hover {
+    box-shadow: 0 16px 32px rgba(0,0,0,0.2);
+    transform: scale(1.05);
+}
+
+.is-today {
+    background-color: #007BFF !important; /* blue */
+    color: #FFFFFF; /* white color for the text, for better readability */
+}
+
+.is-past-day {
+    background-color: #e5dddd !important; /* light gray */
+}

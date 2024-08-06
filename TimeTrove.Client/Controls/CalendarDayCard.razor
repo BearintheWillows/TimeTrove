@@ -1,0 +1,34 @@
+﻿<div Class="@cardClass" MinimalStyle="true">
+    @DayNumber
+</div>
+
+
+
+@code {
+    [Parameter]
+     public bool IsToday { get; set; }
+        
+    [Parameter]
+    public bool IsPastDay { get; set; }
+    
+    [Parameter]
+    public int DayNumber { get; set; }
+    
+    private string cardClass;
+    
+    protected override async Task OnParametersSetAsync()
+    {
+        cardClass = "calendar-day";
+        
+        if (IsToday)
+        {
+            cardClass += " is-today";
+        }
+
+        if (IsPastDay)
+        {
+            cardClass += " is-past-day";
+        }
+    }
+}
+

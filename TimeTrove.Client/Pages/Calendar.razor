@@ -1,0 +1,62 @@
+﻿@page "/Calendar"
+@using TimeTrove.Client.Models
+<h3>Calendar</h3>
+
+<div class="calendar-container">
+    @foreach (var day in FullCalendarDays)
+    {
+        
+        <CalendarDayCard DayNumber="@day.DayNum" IsToday="@day.IsToday" isPastDay="@day.IsPastDate" />
+  
+    }
+
+</div>
+
+
+
+
+
+
+
+
+@code {
+    public List<CalendarDay> FullCalendarDays = [];
+
+    protected override void OnInitialized()
+    {
+        GenerateCalendarDays();
+    }
+
+    private void GenerateCalendarDays()
+    {
+        FullCalendarDays = [];
+
+        DateTime today = DateTime.Today;
+
+        var startingDateOfCalendar = GetStartDateForCalendar(today);
+
+        var dateToAdd = startingDateOfCalendar;
+        
+        for (int i = 0; i < 42; i++)
+        {
+            FullCalendarDays.Add(new CalendarDay(new DateTime(dateToAdd.Ticks)));
+            dateToAdd = dateToAdd.AddDays(1);
+        }
+    }
+
+    private DateTime GetStartDateForCalendar(DateTime day)
+    {
+        DateTime firstDayOfCurrentMonth = new DateTime(day.Year, day.Month, 1);
+        DateTime lastDayOfPreviousMonth = firstDayOfCurrentMonth.AddDays(-1);
+
+        DateTime startingDateOfCalendar = lastDayOfPreviousMonth;
+
+        while (startingDateOfCalendar.DayOfWeek != DayOfWeek.Monday)
+        {
+            startingDateOfCalendar = startingDateOfCalendar.AddDays(-1);
+        }
+
+        return startingDateOfCalendar;
+    }
+
+}

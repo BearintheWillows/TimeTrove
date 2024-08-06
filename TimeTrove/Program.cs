@@ -95,7 +95,7 @@ try
     app.MapRazorComponents<App>()
         .AddInteractiveServerRenderMode()
         .AddInteractiveWebAssemblyRenderMode()
-        .AddAdditionalAssemblies(typeof(Home).Assembly);
+        .AddAdditionalAssemblies(typeof(Account).Assembly);
         
 
 // Add additional endpoints required by the Identity /Account Razor components.

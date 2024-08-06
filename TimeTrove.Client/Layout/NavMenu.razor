@@ -8,11 +8,8 @@
     <Authorized>
     <nav>
         <FluentNavMenu Width="250" Collapsible="true" Title="Custom navigation menu">
-        
-            <FluentNavLink Href="Account/Manage">@context.User.Identity?.Name</FluentNavLink>
-            <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icon.FromImageUrl("/images/home.svg")" IconColor="Color.Accent">Home</FluentNavLink>
-            <FluentNavLink Href="auth" Icon="@Icon.FromImageUrl("/images/authrequired.svg")" IconColor="Color.Accent">Auth Required</FluentNavLink>
-            <FluentNavLink Href="Account">Bank Accounts</FluentNavLink>
+            <FluentNavLink Href="Calendar">Calendar</FluentNavLink>
+            <FluentNavLink Href="Account/Manage" Icon="@(new Icons.Regular.Size20.Settings())"> Account Settings</FluentNavLink>
             <form action="Account/Logout" method="post">
                 <AntiforgeryToken/>
                 <input type="hidden" name="ReturnUrl" value="@currentUrl"/>

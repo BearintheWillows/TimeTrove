@@ -1,6 +1,7 @@
 ﻿@using TimeTrove.Client.Models
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
+<p>Available Bank Accounts:</p>
 
 <ul>
     @foreach (var account in bankAccounts)
@@ -8,6 +9,8 @@
         <li>@account.Name | @account.BalanceStr</li>
     } 
 </ul>
+
+
 
 
 @code {

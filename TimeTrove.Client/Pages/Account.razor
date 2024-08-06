@@ -1,6 +1,7 @@
 ﻿@page "/account"
-@using TimeTrove.Client.Models
+@page "/"
 
+@attribute [Authorize]
 <h1>Bank Accounts</h1>
 
 <BankAccountList />
