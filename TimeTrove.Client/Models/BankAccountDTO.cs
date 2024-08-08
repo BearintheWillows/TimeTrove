@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 namespace TimeTrove.Client.Models;
@@ -11,6 +12,17 @@ public class BankAccountDTO
 
     [RegularExpression(@"^-?\d+(\.\d{0,2})?$", ErrorMessage = "Invalid balance format.")]
     public decimal Balance;
+
+    public BankAccountDTO()
+    {
+    }
+
+    [SetsRequiredMembers]
+    public BankAccountDTO(string name, string balanceStr)
+    {
+        Name = name;
+        BalanceStr = balanceStr;
+    }
 
     [Required(ErrorMessage = "Balance is required.")]
     [Range(-99999999.99, 99999999.99, ErrorMessage = "Balance must be between -99,999,999.99 and 99,999,999.99")]
