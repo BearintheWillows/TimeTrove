@@ -1,7 +1,18 @@
-﻿.calendar-container {
+﻿
+.calendar-container{
+    display: flex;
+    height: 89vh;
+    width: 100%;
+    justify-content: center;
+}
+
+
+.calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(6, 1fr);
-    gap: 10px; /* Adjust as needed */
+    gap: 10px;
+    height: 990px;
+    width: 95%;
 }
 

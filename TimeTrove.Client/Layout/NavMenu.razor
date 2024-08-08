@@ -6,26 +6,38 @@
 @inject NavigationManager NavigationManager
 <AuthorizeView>
     <Authorized>
-    <nav>
-        <FluentNavMenu Width="250" Collapsible="true" Title="Custom navigation menu">
-            <FluentNavLink Href="Calendar">Calendar</FluentNavLink>
-            <FluentNavLink Href="Account/Manage" Icon="@(new Icons.Regular.Size20.Settings())"> Account Settings</FluentNavLink>
-            <form action="Account/Logout" method="post">
-                <AntiforgeryToken/>
-                <input type="hidden" name="ReturnUrl" value="@currentUrl"/>
-                <FluentButton Type="ButtonType.Submit" Style="width: 100%;">Logout</FluentButton>
-            </form>
-        </FluentNavMenu>
-    </nav>
+        <nav>
+            <FluentNavMenu Width="250" Collapsible="true" ExpandedChanged="SetToolTips" Title="Custom navigation menu">
+                <FluentNavLink Id="Calendarnav" Href="Calendar" Icon="@(new Icons.Regular.Size28.CalendarDate())">Calendar</FluentNavLink>
+                
+                <FluentNavLink Id="BankAccountNav" Href="Account" Icon="@(new Icons.Regular.Size20.BuildingBank())"> Bank Accounts</FluentNavLink>
+                
+                <FluentNavLink Id="SettingsNav" Href="Account/Manage" Icon="@(new Icons.Regular.Size20.Settings())">Account Settings</FluentNavLink>
+                
+                <form action="Account/Logout" method="post">
+                    <AntiforgeryToken/>
+                    <input type="hidden" name="ReturnUrl" value="@currentUrl"/>
+                    <FluentNavLink Id="SignOutNav" Icon="@(new Icons.Regular.Size20.SignOut())" Type="ButtonType.Submit" Style="width: 100%;">Logout</FluentNavLink>
+                    </form>
+            </FluentNavMenu>
+        </nav>
     </Authorized>
     <NotAuthorized>
-        
+
     </NotAuthorized>
 </AuthorizeView>
 
+@if (!expandedMenu)
+{
+    <FluentTooltip Anchor="Calendarnav" HideTooltipOnCursorLeave="true" Position=TooltipPosition.End Delay=100>Calendar</FluentTooltip>
+    <FluentTooltip Anchor="BankAccountNav" HideTooltipOnCursorLeave="true" Position=TooltipPosition.End Delay=100>Bank Accounts</FluentTooltip>
+    <FluentTooltip Anchor="SettingsNav" HideTooltipOnCursorLeave="true" Position=TooltipPosition.End Delay=100>Settings</FluentTooltip>
+    <FluentTooltip Anchor="SignOutNav" HideTooltipOnCursorLeave="true" Position=TooltipPosition.End Delay=100>Click here to logout</FluentTooltip>
+}
 
 @code {
     private string? currentUrl;
+    private bool expandedMenu;
 
     protected override void OnInitialized()
     {
@@ -42,6 +54,11 @@
     public void Dispose()
     {
         NavigationManager.LocationChanged -= OnLocationChanged;
+    }
+
+    private void SetToolTips(bool isExpanded)
+    {
+        expandedMenu = isExpanded;
     }
 
 }
