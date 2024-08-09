@@ -50,7 +50,7 @@ else
     [Parameter] public int? accountID { get; set; }
     private bool EditMode;
     
-    public BankAccountDTO newAccount = new BankAccountDTO(name: string.Empty, balanceStr: "0.00");
+    public BankAccountDTO newAccount = new BankAccountDTO(name: string.Empty, balance: new decimal(0.00D));
 
     public async void HandleSubmit()
     {

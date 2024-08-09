@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using TimeTrove.Client.Models.Shared;
 using TimeTrove.Data.Configs;
 using TimeTrove.Data.Interfaces;
 using TimeTrove.Data.Models;

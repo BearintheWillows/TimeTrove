@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TimeTrove.Client.Models;
 
 namespace TimeTrove.Data.Models;
 
@@ -48,5 +49,17 @@ public class BankAccount : AuditableEntity
         }
 
         Balance -= amount;
+    }
+
+    public static BankAccountDTO ToDto(BankAccount bankAccount)
+    {
+        ArgumentNullException.ThrowIfNull(bankAccount);
+
+        return new BankAccountDTO
+        {
+            Id = bankAccount.Id,
+            Name = bankAccount.Name,
+            Balance = bankAccount.Balance
+        };
     }
 }

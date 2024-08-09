@@ -1,4 +1,6 @@
-﻿namespace TimeTrove.Data.Models;
+﻿using TimeTrove.Client.Models;
+
+namespace TimeTrove.Data.Models;
 
 public class Category : AuditableEntity
 {
@@ -12,4 +14,18 @@ public class Category : AuditableEntity
     public Category ParentCategory { get; set; }
     
     public List<Category> ChildCategories { get; set; }
+    
+    public static CategoryDTO ToDto(Category category)
+    {
+        ArgumentNullException.ThrowIfNull(category);
+        
+        return new CategoryDTO
+        {
+            Id = category.Id,
+            Name = category.Name,
+            Active = category.Active,
+            Color = category.Color,
+            Icon = category.Icon
+        };
+    }
 }

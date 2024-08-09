@@ -51,7 +51,7 @@ public class BankAccountService : IBankAccountService
             return new BankAccountDTO
             {
                 Name = newAccount.Name,
-                BalanceStr = bankAccountDto.BalanceStr
+                Balance = newAccount.Balance
             };
         }
         catch (Exception ex)
@@ -67,7 +67,7 @@ public class BankAccountService : IBankAccountService
         return _context.BankAccounts.Where(b => b.ApplicationUserId == userId)
             .Select(b => new BankAccountDTO
             {
-                Name = b.Name, BalanceStr = b.Balance.ToString("N2", CultureInfo.InvariantCulture)
+                Name = b.Name, Balance = b.Balance
             })
             .ToListAsync();
     }

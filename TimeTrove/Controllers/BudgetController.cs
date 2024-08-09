@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TimeTrove.Client.Models;
 using TimeTrove.Data;
+using TimeTrove.Data.Models;
 using TimeTrove.Services;
 
 namespace TimeTrove.Controllers;
@@ -11,17 +12,22 @@ namespace TimeTrove.Controllers;
 public class BudgetController : ControllerBase
 {
     private readonly IBudgetService _budgetService;
-    private readonly ApplicationDbContext _dbContext;
     
-    public BudgetController(IBudgetService budgetService, ApplicationDbContext dbContext)
+    public BudgetController(IBudgetService budgetService)
     {
         _budgetService = budgetService;
-        _dbContext = dbContext;
     }
     
-    /*[HttpGet]
-    public Task<ActionResult<BudgetDTO>> GetBudget()
+    [HttpGet("{budgetID}")]
+    public async Task<ActionResult<BudgetDTO>> GetBudgetDetails(int budgetID, [FromQuery] bool includeItems = false)
     {
-        
-    }*/
+        var budget = await _budgetService.GetBudgetAsync(budgetID, includeItems);
+
+        if (budget == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(budget);
+    }
 }

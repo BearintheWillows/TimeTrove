@@ -1,4 +1,4 @@
-﻿namespace TimeTrove.Data.Models.Enums;
+﻿namespace TimeTrove.Client.Models.Enums.Enums;
 
 public enum TimeUnit
 {

@@ -1,4 +1,6 @@
-﻿namespace TimeTrove.Data.Models;
+﻿using TimeTrove.Client.Models;
+
+namespace TimeTrove.Data.Models;
 
 public class Budget : AuditableEntity
 {
@@ -10,4 +12,18 @@ public class Budget : AuditableEntity
     
     public int CategoryID { get; set; }
     public Category Category { get; set; }
+
+    public static BudgetDTO ToDto(Budget budget)
+    {
+        ArgumentNullException.ThrowIfNull(budget);
+        return new BudgetDTO
+        {
+            Id = budget.Id,
+            Name = budget.Name,
+            StartDate = budget.StartDate,
+            EndDate = budget.EndDate,
+            Items = budget.Items.Select(item => BudgetItem.ToDto(item)).ToList()
+        };
+    }
 }
+
