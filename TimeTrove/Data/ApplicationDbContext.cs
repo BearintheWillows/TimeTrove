@@ -20,11 +20,15 @@ public class ApplicationDbContext
     
     public virtual DbSet<BankAccount> BankAccounts { get; set; }
     
+    public virtual DbSet<Budget> Budgets { get; set; }
+    
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
 
         builder.ApplyConfiguration(new RoleConfiguration());
+
+        builder.Entity<BudgetItem>().OwnsOne<Frequency>(bi => bi.Frequency);
 
     }
     

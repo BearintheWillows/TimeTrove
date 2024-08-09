@@ -66,6 +66,7 @@ try
     builder.Services.AddControllers();
     builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
     builder.Services.AddScoped<IBankAccountService, BankAccountService>();
+    builder.Services.AddScoped<IBudgetService, BudgetService>();
     
     Log.Information("About to build...!");
 
