@@ -7,7 +7,7 @@ public class BankAccount : AuditableEntity
     
     //Properties
     
-    public int? Id { get; set; } = 0;
+    public int? Id { get; set; }
     
     [Required(ErrorMessage = "Bank account name is required.")]
     [MaxLength(100, ErrorMessage = "Bank account name cannot exceed 100 characters.")]

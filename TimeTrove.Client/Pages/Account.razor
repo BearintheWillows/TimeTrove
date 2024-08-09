@@ -2,6 +2,9 @@
 @page "/"
 @using TimeTrove.Client.Models
 @inject NavigationManager NavigationManager
+@inject HttpClient HttpClient
+
+@rendermode InteractiveAuto
 
 @attribute [Authorize]
 
@@ -14,13 +17,23 @@
 
 @if (EditMode)
 {
-<EditForm Model="newAccount" OnValidSubmit="HandleSubmit">
-    <InputText id="accountName" @bind-Value="newAccount.Name" />
-    <InputNumber id="balance" @bind-Value="newAccount.Balance" />
+    <EditForm Model="newAccount" OnValidSubmit="HandleSubmit" FormName="CreateBankAccountForm">
+        <DataAnnotationsValidator />
+        <ValidationSummary/>
+        <label for="accountName">
+            Account Name:
+            <InputText id="accountName" @bind-Value="newAccount.Name"/>
+        </label>
+        <label for="balance">
+            Balance:
+            <InputNumber id="balance" @bind-Value="newAccount.Balance"/>
+        </label>
+        
 
-    <button type="submit">Submit</button>
-    <button type="button" @onclick="Cancel">Cancel</button>
-</EditForm>
+
+        <button type="submit">Submit</button>
+        <button type="button" @onclick="Cancel">Cancel</button>
+    </EditForm>
 }
 else
 {
@@ -36,13 +49,19 @@ else
 
     [Parameter] public int? accountID { get; set; }
     private bool EditMode;
+    
     public BankAccountDTO newAccount = new BankAccountDTO(name: string.Empty, balanceStr: "0.00");
 
-    public void HandleSubmit()
+    public async void HandleSubmit()
     {
-        Console.WriteLine("OnValidSubmit");
-        // Your code to POST accountModel to server...
-        NavigationManager.NavigateTo("/Account", forceLoad: true);
+        var response = await HttpClient.PostAsJsonAsync<BankAccountDTO>(NavigationManager.BaseUri + "api/BankAccount", newAccount);
+
+        if (response.IsSuccessStatusCode)
+        {
+            Console.WriteLine("Success");
+            Console.WriteLine(response.Content);
+            NavigationManager.Refresh();
+        }
     }
 
     public void Cancel()
