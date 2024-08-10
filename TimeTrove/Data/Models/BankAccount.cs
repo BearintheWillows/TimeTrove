@@ -57,7 +57,7 @@ public class BankAccount : AuditableEntity
 
         return new BankAccountDTO
         {
-            Id = bankAccount.Id,
+            Id = bankAccount.Id ?? -1,
             Name = bankAccount.Name,
             Balance = bankAccount.Balance
         };

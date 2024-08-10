@@ -8,7 +8,7 @@ namespace TimeTrove.Data.Models;
 
     public class BudgetItem : AuditableEntity
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public decimal Amount { get; set; }
         public TransactionType Type { get; set; }
         public Frequency Frequency { get; set; }
@@ -46,5 +46,20 @@ namespace TimeTrove.Data.Models;
             };
 
             return budgetItemDto;
+        }
+
+        public static BudgetItem FromDto(BudgetItemDTO budgetItemDto)
+        {
+            ArgumentNullException.ThrowIfNull(budgetItemDto);
+
+            return new BudgetItem
+            {
+                Id = budgetItemDto.Id,
+                Amount = budgetItemDto.Amount,
+                Type = budgetItemDto.Type,
+                Frequency = budgetItemDto.Frequency,
+                PrimaryBankAccountId = budgetItemDto.PrimaryBankAccount.Id ?? -1,
+                DestinationBankAccountId = budgetItemDto.DestinationBankAccount?.Id ?? null
+            };
         }
     }

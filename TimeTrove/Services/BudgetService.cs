@@ -8,6 +8,7 @@ namespace TimeTrove.Services;
 public interface IBudgetService
 {
     Task<BudgetDTO> GetBudgetAsync(int budgetId, bool includeItems);
+    Task<object> CreateBudgetAsync(BudgetDTO budgetDto);
 }
 
 public class BudgetService : IBudgetService
@@ -26,5 +27,12 @@ public class BudgetService : IBudgetService
             : await _dbContext.Budgets.FirstOrDefaultAsync(b => b.Id == budgetId);
 
         return budget != null ? Budget.ToDto(budget) : null;
+    }
+
+    public Task<object> CreateBudgetAsync(BudgetDTO budgetDto)
+    {
+        throw NotImplementedException();
+        
+        /*TODO - Finish off*/
     }
 }

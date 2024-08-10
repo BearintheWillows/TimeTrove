@@ -30,4 +30,12 @@ public class BudgetController : ControllerBase
 
         return Ok(budget);
     }
+
+    [HttpPost]
+    public async Task<ActionResult<BudgetDTO>> CreateNewBudget(BudgetDTO budgetDto)
+    {
+        var budget = await _budgetService.CreateBudgetAsync(budgetDto);
+        
+        /*TODO - Finish Off*/
+    }
 }
