@@ -21,21 +21,17 @@ public class BudgetController : ControllerBase
     [HttpGet("{budgetID}")]
     public async Task<ActionResult<BudgetDTO>> GetBudgetDetails(int budgetID, [FromQuery] bool includeItems = false)
     {
-        var budget = await _budgetService.GetBudgetAsync(budgetID, includeItems);
+        var budget = await _budgetService.GetBudgetAsync(budgetID);
 
-        if (budget == null)
-        {
-            return NotFound();
-        }
+        return budget != null ? Ok(budget) : NotFound();
 
-        return Ok(budget);
     }
 
     [HttpPost]
     public async Task<ActionResult<BudgetDTO>> CreateNewBudget(BudgetDTO budgetDto)
     {
         var budget = await _budgetService.CreateBudgetAsync(budgetDto);
-        
-        /*TODO - Finish Off*/
+
+        return Ok();
     }
 }

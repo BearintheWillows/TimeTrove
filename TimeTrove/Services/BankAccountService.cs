@@ -37,7 +37,7 @@ public class BankAccountService : IBankAccountService
         {
             Name = bankAccountDto.Name,
             Balance = bankAccountDto.Balance,
-            ApplicationUserId = _userManager.GetUserId(_httpContextAccessor.HttpContext.User)
+            OwnerID = _userManager.GetUserId(_httpContextAccessor.HttpContext.User)
 
         };
         
@@ -64,7 +64,7 @@ public class BankAccountService : IBankAccountService
 
     public Task<List<BankAccountDTO>?> GetBankAccounts(string? userId)
     {
-        return _context.BankAccounts.Where(b => b.ApplicationUserId == userId)
+        return _context.BankAccounts.Where(b => b.OwnerID == userId)
             .Select(b => new BankAccountDTO
             {
                 Name = b.Name, Balance = b.Balance

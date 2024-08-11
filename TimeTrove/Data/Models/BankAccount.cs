@@ -1,13 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using TimeTrove.Client.Models;
 
 namespace TimeTrove.Data.Models;
 
 public class BankAccount : AuditableEntity
 {
-    
     //Properties
-    
     public int? Id { get; set; }
     
     [Required(ErrorMessage = "Bank account name is required.")]
@@ -19,8 +18,12 @@ public class BankAccount : AuditableEntity
     [DataType(DataType.Currency)]
     public decimal Balance { get; set; }
     
-    public string ApplicationUserId { get; set; }
-    public ApplicationUser ApplicationUser { get; set; }
+    public ICollection<Transaction> Transactions { get; set; }
+    
+    public string OwnerID { get; set; }
+    
+    [ForeignKey("OwnerID")]
+    public ApplicationUser Owner { get; set; }
     
     
     

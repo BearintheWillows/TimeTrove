@@ -19,18 +19,30 @@ public class ApplicationDbContext
         ChangeTracker.StateChanged += UpdateTimestamps;
     }
     
-    public virtual DbSet<BankAccount> BankAccounts { get; set; }
-    
+    public virtual DbSet<BankAccount> BankAccounts { get; set; } 
     public virtual DbSet<Budget> Budgets { get; set; }
+    public virtual DbSet<Transaction> Transactions { get; set; }
+    public virtual DbSet<Category> Categories { get; set; }
     
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
 
         builder.ApplyConfiguration(new RoleConfiguration());
+        
+      
+        builder.Entity<Transaction>()
+            .HasOne(t => t.PrincipleBankAccount)
+            .WithMany(b => b.Transactions)
+            .HasForeignKey(t => t.PrincipleBankAccountId);
 
-        builder.Entity<BudgetItem>().OwnsOne<Frequency>(bi => bi.Frequency);
-
+        builder.Entity<Transaction>()
+            .HasOne(t => t.SecondaryBankAccount)
+            .WithMany() // You may not want this to be part of transactions collection.
+            .HasForeignKey(t => t.SecondaryBankAccountId)
+            .OnDelete(DeleteBehavior.Restrict); // prevent cascade delete
+        
+        
     }
     
     private static void UpdateTimestamps(object sender, EntityEntryEventArgs e)

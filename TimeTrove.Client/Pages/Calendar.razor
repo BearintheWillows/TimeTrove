@@ -1,12 +1,13 @@
 ﻿@page "/Calendar"
 @using TimeTrove.Client.Models
+@using CalendarDayCard = TimeTrove.Client.Models.CalendarDayCard
 <h3>Calendar</h3>
 <div class="calendar-container">
     <div class="calendar-grid">
         @foreach (var day in FullCalendarDays)
         {
 
-        <CalendarDayCard DayNumber="@day.DayNum" IsToday="@day.IsToday" isPastDay="@day.IsPastDate" />
+        <CalendarDayCard DayNumber="@day.Date.Day" IsToday="@day.IsToday" isPastDay="@day.IsPastDate" />
 
         }
 
@@ -22,7 +23,7 @@
 
 
 @code {
-    public List<CalendarDay> FullCalendarDays = [];
+    public List<CalendarDayCard> FullCalendarDays = [];
 
     protected override void OnInitialized()
     {
@@ -41,7 +42,7 @@
         
         for (int i = 0; i < 42; i++)
         {
-            FullCalendarDays.Add(new CalendarDay(new DateTime(dateToAdd.Ticks)));
+            FullCalendarDays.Add(new CalendarDayCard(new DateTime(dateToAdd.Ticks)));
             dateToAdd = dateToAdd.AddDays(1);
         }
     }

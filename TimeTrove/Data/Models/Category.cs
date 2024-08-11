@@ -28,4 +28,20 @@ public class Category : AuditableEntity
             Icon = category.Icon
         };
     }
+
+    public static Category FromDto(CategoryDTO categoryDto)
+    {
+        ArgumentNullException.ThrowIfNull(categoryDto);
+
+        return new Category
+        {
+            Id = categoryDto.Id,
+            Name = categoryDto.Name,
+            Active = categoryDto.Active,
+            Color = categoryDto.Color,
+            Icon = categoryDto.Icon
+        };
+    }
+    
+    
 }

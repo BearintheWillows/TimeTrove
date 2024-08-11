@@ -7,8 +7,8 @@ namespace TimeTrove.Services;
 
 public interface IBudgetService
 {
-    Task<BudgetDTO> GetBudgetAsync(int budgetId, bool includeItems);
-    Task<object> CreateBudgetAsync(BudgetDTO budgetDto);
+    Task<BudgetDTO> GetBudgetAsync(int budgetId);
+    Task<BudgetDTO> CreateBudgetAsync(BudgetDTO budgetDto);
 }
 
 public class BudgetService : IBudgetService
@@ -19,20 +19,28 @@ public class BudgetService : IBudgetService
     {
         _dbContext = dbContext;
     }
-    public async Task<BudgetDTO> GetBudgetAsync(int budgetId, bool includeItems)
+    public async Task<BudgetDTO?> GetBudgetAsync(int budgetId)
     {
-        // Querying the Budgets DbSet for a Budget with the specified ID, and including related BudgetItems based on the includeItems boolean.
-        var budget = includeItems
-            ? await _dbContext.Budgets.Include(b => b.Items).FirstOrDefaultAsync(b => b.Id == budgetId)
-            : await _dbContext.Budgets.FirstOrDefaultAsync(b => b.Id == budgetId);
-
-        return budget != null ? Budget.ToDto(budget) : null;
-    }
-
-    public Task<object> CreateBudgetAsync(BudgetDTO budgetDto)
-    {
-        throw NotImplementedException();
+        var budget = await _dbContext.Budgets.AsNoTracking().FirstOrDefaultAsync(b => b.Id == budgetId);
         
-        /*TODO - Finish off*/
+        return budget != null ? Budget.ToDto(budget) : null;
+        
     }
+
+    public async Task<BudgetDTO> CreateBudgetAsync(BudgetDTO budgetDto)
+    {
+       
+            ArgumentNullException.ThrowIfNull(budgetDto);
+
+            // Transforming DTO to Entity
+            Budget budget = Budget.FromDto(budgetDto);
+
+            // Adding budget to dbContext
+            await _dbContext.Budgets.AddAsync(budget);
+
+            // Saving changes
+            await _dbContext.SaveChangesAsync();
+
+            return Budget.ToDto(budget);
+        }
 }
