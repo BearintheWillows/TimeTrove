@@ -2,6 +2,8 @@
 @using TimeTrove.Client.Models.Enums.Enums
 @using CalendarDayCard = TimeTrove.Client.Controls.CalendarDayCardComponent
 @implements IDialogContentComponent<CalendarDayDTO>
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
 
 
 <FluentDialogHeader ShowDismiss="true">
@@ -27,10 +29,11 @@
 
 @code {
     [Parameter] public CalendarDayDTO Content { get; set; } = default!;
+    public List<CategoryDTO> Categories { get; set; }
 
     [CascadingParameter] public FluentDialog Dialog { get; set; } = default!;
 
-    protected override Task OnParametersSetAsync()
+    protected override async Task<Task> OnParametersSetAsync()
     {
         Content.Transactions.Add(new TransactionDTO()
         {
@@ -43,7 +46,21 @@
                 Balance = (decimal)0.00
             }
         });
+        
         return base.OnParametersSetAsync();
+    }
+
+    protected override async void OnInitialized()
+    {
+        var result = await HttpClient.GetFromJsonAsync<List<CategoryDTO>>(NavigationManager.BaseUri + "api/Category");
+
+        Categories = result;
+        
+        foreach(var item in Categories)
+        {
+            Console.WriteLine($"{item.Name} | {item.Color}");
+        }
+        await base.OnInitializedAsync();
     }
 
     private async Task SaveAsync()

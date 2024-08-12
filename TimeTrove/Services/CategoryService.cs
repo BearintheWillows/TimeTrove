@@ -21,6 +21,8 @@ public class CategoryService : ICategoryService
 
     public async Task<List<CategoryDTO>> GetCategories()
     {
-        return await _dbContext.Categories.Select(c => Category.ToDto(c)).ToListAsync();
+        var result = await _dbContext.Categories.Select(c => Category.ToDto(c)).ToListAsync();
+
+        return result;
     }
 }

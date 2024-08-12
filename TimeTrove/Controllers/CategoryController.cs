@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TimeTrove.Client.Models;
 using TimeTrove.Services;
 
 namespace TimeTrove.Controllers;
@@ -15,9 +16,9 @@ public class CategoryController : ControllerBase
     }
     
     [HttpGet]
-    public IActionResult Get()
+    public async Task<ActionResult<IEnumerable<CategoryDTO>>> Get()
     {
-        var categories = _categoryService.GetCategories();
+       List<CategoryDTO> categories = await _categoryService.GetCategories();
         
         return Ok(categories);
     }
