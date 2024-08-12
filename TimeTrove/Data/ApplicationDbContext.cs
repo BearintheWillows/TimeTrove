@@ -41,8 +41,14 @@ public class ApplicationDbContext
             .WithMany() // You may not want this to be part of transactions collection.
             .HasForeignKey(t => t.SecondaryBankAccountId)
             .OnDelete(DeleteBehavior.Restrict); // prevent cascade delete
+
+        builder.Entity<Category>()
+            .HasOne<ApplicationUser>(c => c.Owner)
+            .WithMany()
+            .HasForeignKey(c => c.OwnerID)
+            .OnDelete(DeleteBehavior.Restrict);
         
-        
+
     }
     
     private static void UpdateTimestamps(object sender, EntityEntryEventArgs e)

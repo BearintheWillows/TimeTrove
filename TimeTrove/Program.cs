@@ -21,7 +21,7 @@ try
     var builder = WebApplication.CreateBuilder(args);
     
     builder.Logging.AddSerilog(dispose: true);
-    /*builder.Host.UseSerilog((context, services, configuration) => configuration
+    builder.Host.UseSerilog((context, services, configuration) => configuration
         .WriteTo.MSSqlServer(
             connectionString: builder.Configuration.GetConnectionString("AppDbConnection"),
             tableName: "Logs",
@@ -29,7 +29,6 @@ try
             ).MinimumLevel.Warning()
         .Enrich.FromLogContext()
         .WriteTo.Console());
-        */
     
     Log.Information("Serilog Configured!");
     
@@ -68,6 +67,7 @@ try
     builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
     builder.Services.AddScoped<IBankAccountService, BankAccountService>();
     builder.Services.AddScoped<IBudgetService, BudgetService>();
+    builder.Services.AddScoped<ICategoryService, CategoryService>();
     
     Log.Information("About to build...!");
 

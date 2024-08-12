@@ -1,0 +1,64 @@
+﻿@inject IDialogService DialogService
+@using System.Globalization
+@using TimeTrove.Client.Models
+
+
+<div Class="@cardClass" @onclick="@OpenAsync">
+    @DayCard.Date.Day
+</div>
+
+
+
+@code {
+    
+    [Parameter]
+    public CalendarDayCard DayCard { get; set; }
+    
+    private string cardClass;
+    private bool _trapFocus = true;
+    private bool _modal = true;
+    private CalendarDayDTO DialogData;
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        cardClass = "calendar-day";
+        
+        if (DayCard.IsToday)
+        {
+            cardClass += " is-today";
+        }
+
+        if (DayCard.IsPastDate)
+        {
+            cardClass += " is-past-day";
+        }
+        
+        DialogData = new CalendarDayDTO { Date = DayCard.Date, Transactions = []};
+    }
+
+    private async Task OpenAsync()
+    {
+        // Create a new instance of DialogData
+        // to allow the user to cancel the update
+        var data = DialogData;
+        data.Id = -1;
+
+        var dialog = await DialogService.ShowDialogAsync<EditBudgetDialog>(data, new DialogParameters()
+        {
+            Height = "240px",
+            Title = $"Create Budget for {DayCard.Date.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture)}",
+            
+            PreventDismissOnOverlayClick = true,
+            PreventScroll = true,
+        });
+
+        var result = await dialog.Result;
+        if (!result.Cancelled && result.Data != null)
+        {
+            DialogData = (CalendarDayDTO)result.Data;
+        }
+
+    }
+}
+

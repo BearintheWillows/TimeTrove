@@ -10,5 +10,5 @@ public class TransactionDTO
     public TransactionType Type { get; set; }
     public DateTime TransactionDate { get; set; }
     public BankAccountDTO PrincipleBankAccount { get; set; }
-    public BankAccountDTO SecondaryBankAccount { get; set; }
+    public BankAccountDTO? SecondaryBankAccount { get; set; }
 }

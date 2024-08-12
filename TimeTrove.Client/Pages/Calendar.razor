@@ -7,7 +7,7 @@
         @foreach (var day in FullCalendarDays)
         {
 
-        <CalendarDayCard DayNumber="@day.Date.Day" IsToday="@day.IsToday" isPastDay="@day.IsPastDate" />
+        <CalendarDayCardComponent DayCard="day" />
 
         }
 

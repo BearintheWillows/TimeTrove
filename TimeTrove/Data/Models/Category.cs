@@ -1,4 +1,5 @@
-﻿using TimeTrove.Client.Models;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using TimeTrove.Client.Models;
 
 namespace TimeTrove.Data.Models;
 
@@ -14,6 +15,11 @@ public class Category : AuditableEntity
     public Category ParentCategory { get; set; }
     
     public List<Category> ChildCategories { get; set; }
+    
+    public string OwnerID { get; set; }
+    
+    [ForeignKey("OwnerID")]
+    public ApplicationUser Owner { get; set; }
     
     public static CategoryDTO ToDto(Category category)
     {

@@ -1,0 +1,62 @@
+﻿@using TimeTrove.Client.Models
+@using TimeTrove.Client.Models.Enums.Enums
+@using CalendarDayCard = TimeTrove.Client.Controls.CalendarDayCardComponent
+@implements IDialogContentComponent<CalendarDayDTO>
+
+
+<FluentDialogHeader ShowDismiss="true">
+    <FluentStack VerticalAlignment="VerticalAlignment.Center">
+        <FluentIcon Value="@(new Icons.Regular.Size24.WindowApps())" />
+        <FluentLabel Typo="Typography.PaneHeader">
+            @Dialog.Instance.Parameters.Title
+        </FluentLabel>
+    </FluentStack>
+</FluentDialogHeader>
+
+@* Footer *@
+<FluentDialogFooter>
+    <FluentButton Appearance="Appearance.Accent" OnClick="@SaveAsync">Save</FluentButton>
+    <FluentButton Appearance="Appearance.Neutral" ValueChanged="@Content.Date" OnClick="@CancelAsync">Cancel</FluentButton>
+</FluentDialogFooter>
+
+@* Body *@
+<FluentDialogBody>
+    <FluentDatePicker Label="Scheduled Start Date" AriaLabel="To" @bind-Value="@Content.Date" View="CalendarViews.Days" />
+
+</FluentDialogBody>
+
+@code {
+    [Parameter] public CalendarDayDTO Content { get; set; } = default!;
+
+    [CascadingParameter] public FluentDialog Dialog { get; set; } = default!;
+
+    protected override Task OnParametersSetAsync()
+    {
+        Content.Transactions.Add(new TransactionDTO()
+        {
+            Amount = (decimal)0.00,
+            Type = TransactionType.Expense,
+            TransactionDate = (DateTime)Content.Date,
+            PrincipleBankAccount = new BankAccountDTO
+            {
+                Name = "",
+                Balance = (decimal)0.00
+            }
+        });
+        return base.OnParametersSetAsync();
+    }
+
+    private async Task SaveAsync()
+    {
+        await Dialog.CloseAsync(Content);
+    }
+
+    private async Task CancelAsync()
+    {
+        await Dialog.CancelAsync();
+    }
+    
+   
+    
+
+}
