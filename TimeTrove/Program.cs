@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Serilog;
+using TimeTrove.Client.Models.Shared;
 using TimeTrove.Client.Pages;
 using TimeTrove.Components;
 using TimeTrove.Components.Account;
@@ -97,7 +98,7 @@ try
     app.MapRazorComponents<App>()
         .AddInteractiveServerRenderMode()
         .AddInteractiveWebAssemblyRenderMode()
-        .AddAdditionalAssemblies(typeof(Account).Assembly);
+        .AddAdditionalAssemblies(typeof(Frequency).Assembly);
         
 
 // Add additional endpoints required by the Identity /Account Razor components.

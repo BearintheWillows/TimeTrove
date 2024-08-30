@@ -1,0 +1,58 @@
+﻿@using TimeTrove.Client.Models
+@using TimeTrove.Client.Service
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject BankAccountService BankAccountService
+
+
+<p>Available Bank Accounts:</p>
+
+<ul>
+    @foreach (var bankAccount in bankAccounts!)
+    {
+        <li class="bank-account-row">
+            <BankAccountRow BankAccount="bankAccount" OnSave="SaveBankAccount" />
+        </li>
+    }
+
+    <!-- Add new bank account row at the end, always editable by default -->
+    <li class="bank-account-row">
+        <BankAccountRow BankAccount="newBankAccount" IsNew="true" OnSave="AddNewBankAccount" />
+    </li>
+</ul>
+
+@code {
+    private List<BankAccountDTO> bankAccounts = new List<BankAccountDTO>();
+    private BankAccountDTO newBankAccount = CreateNewBankAccount();
+
+    protected override async Task OnInitializedAsync()
+    {
+        bankAccounts = await BankAccountService.GetBankAccounts();
+    }
+
+
+
+
+    private static BankAccountDTO CreateNewBankAccount() => new BankAccountDTO
+   {
+        Name = string.Empty,
+        Balance = 0,
+        IsEditing = true
+    };
+
+    private async Task SaveBankAccount(BankAccountDTO bankAccount)
+    {
+        bankAccount.IsEditing = false;
+        await BankAccountService.SaveBankAccount(bankAccount);
+    }
+
+    private async Task AddNewBankAccount(BankAccountDTO bankAccount)
+    {
+        if (!string.IsNullOrWhiteSpace(bankAccount.Name))
+        {
+            await BankAccountService.PostNewBankAccountAsync(bankAccount);
+            bankAccounts.Add(bankAccount);
+            newBankAccount = CreateNewBankAccount(); // Reset form for new bank account
+        }
+    }
+}

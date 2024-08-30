@@ -1,0 +1,35 @@
+﻿@using TimeTrove.Client.Models
+@code {
+    [Parameter] public BankAccountDTO BankAccount { get; set; }
+    [Parameter] public EventCallback<BankAccountDTO> OnSave { get; set; }
+    [Parameter] public bool IsNew { get; set; } = false;
+
+    private void Edit()
+    {
+        BankAccount.IsEditing = true;
+    }
+
+    private async Task Save()
+    {
+        await OnSave.InvokeAsync(BankAccount);
+    }
+}
+
+@if (BankAccount.IsEditing)
+{
+    <!-- Editable Fields -->
+    <FluentTextField @bind-Value="BankAccount.Name" Minlength="4" Label="Name" Placeholder="Enter account name"></FluentTextField>
+    <FluentNumberField @bind-Value="BankAccount.Balance" Label="Balance" Placeholder="Enter balance" />
+    <FluentButton IconStart="@(new Icons.Regular.Size16.Save())" @onclick="Save" Appearance="Appearance.Accent">
+        @(IsNew ? "Add" : "Save")
+    </FluentButton>
+}
+else
+{
+    <!-- Non-editable Fields -->
+    <span>@BankAccount.Name</span>
+    <span>@BankAccount.Balance.ToString("C")</span>
+    <FluentButton IconStart="@(new Icons.Regular.Size16.Edit())" @onclick="Edit" Appearance="Appearance.Accent">
+        Edit
+    </FluentButton>
+}

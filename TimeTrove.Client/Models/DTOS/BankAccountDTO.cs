@@ -13,6 +13,8 @@ public class BankAccountDTO
     public required string Name { get; set; }
 
     public decimal Balance { get; set; }
+
+    public bool IsEditing { get; set; } = false;
   
     public BankAccountDTO()
     {
@@ -24,5 +26,6 @@ public class BankAccountDTO
         
         Name = name;
         Balance = balance;
+
     }
 }

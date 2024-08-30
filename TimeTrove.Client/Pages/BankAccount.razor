@@ -8,39 +8,11 @@
 
 @attribute [Authorize]
 
-<h1>Bank Accounts</h1>
-<FluentButton IconStart="@(new Icons.Regular.Size20.Add())" OnClick="() => EditMode = true">
-    Add Account
-</FluentButton>
 
-<!--TODO - Fix Add Account button-->
+<div class="bankAccount-container">
+    <BankAccountList />
+</div> 
 
-@if (EditMode)
-{
-    <EditForm Model="newAccount" OnValidSubmit="HandleSubmit" FormName="CreateBankAccountForm">
-        <DataAnnotationsValidator />
-        <ValidationSummary/>
-        <label for="accountName">
-            Account Name:
-            <InputText id="accountName" @bind-Value="newAccount.Name"/>
-        </label>
-        <label for="balance">
-            Balance:
-            <InputNumber id="balance" @bind-Value="newAccount.Balance"/>
-        </label>
-        
-
-
-        <button type="submit">Submit</button>
-        <button type="button" @onclick="Cancel">Cancel</button>
-    </EditForm>
-}
-else
-{
-    <div class="bankAccount-container">
-        <BankAccountList />
-    </div> 
-}
 
 
 

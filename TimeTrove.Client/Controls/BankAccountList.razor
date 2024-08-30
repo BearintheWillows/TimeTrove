@@ -4,17 +4,47 @@
 <p>Available Bank Accounts:</p>
 
 <ul>
-    @foreach (var account in bankAccounts)
+    @foreach (var bankAccount in bankAccounts!)
     {
-        <li>@account.Name | @account.Balance</li>
-    } 
+        <li class="bank-account-row">
+            @if (bankAccount.IsEditing)
+            {
+                <!-- Editable Fields -->
+                <FluentTextField @bind-Value=bankAccount.Name Minlength="4" Label="Name" Placeholder="Enter account name"></FluentTextField>
+                <FluentNumberField @bind-Value=bankAccount.Balance Label="Balance" Placeholder="Enter balance" />
+                <FluentButton IconStart="@(new Icons.Regular.Size16.Save())" @onclick="() => SaveBankAccount(bankAccount)" Appearance="Appearance.Accent">
+                    Save
+                </FluentButton>
+            }
+            else
+            {
+                <!-- Non-editable Fields -->
+                <span>@bankAccount.Name</span>
+                <span>@bankAccount.Balance.ToString("C")</span>
+                <FluentButton IconStart="@(new Icons.Regular.Size16.Edit())" @onclick="() => EditBankAccount(bankAccount)" Appearance="Appearance.Accent">
+                    Edit
+                </FluentButton>
+            }
+        </li>
+    }
+
+
+    <!-- Add new bank account row at the end, always editable by default -->
+    <li class="bank-account-row">
+        <!-- Editable Fields for New Bank Account -->
+        <FluentTextField @bind-Value=newBankAccount.Name Minlength="4" Label="Name" Placeholder="Enter new account name"></FluentTextField>
+        <FluentNumberField @bind-Value=newBankAccount.Balance Label="Balance" Placeholder="Enter initial balance" />
+        <FluentButton IconStart="@(new Icons.Regular.Size16.Save())" @onclick="() => AddNewBankAccount()" Appearance="Appearance.Accent">
+            Add
+        </FluentButton>
+    </li>
+
 </ul>
 
 
-
-
 @code {
-    private List<BankAccountDTO>? bankAccounts = [];
+    private List<BankAccountDTO> bankAccounts = [];
+
     protected override async Task OnInitializedAsync()
     {
         var response = await HttpClient.GetFromJsonAsync<List<BankAccountDTO>>(NavigationManager.BaseUri + "api/BankAccount");
@@ -22,6 +52,43 @@
         if (response.Count > 0)
         {
             bankAccounts = response;
+        }
+    }
+
+    // Model for the new bank account
+    private BankAccountDTO newBankAccount = new BankAccountDTO
+        {
+            Name = string.Empty,
+            Balance = 0,
+            IsEditing = true // Editable by default
+        };
+
+    // Method to enter edit mode
+    private void EditBankAccount(BankAccountDTO bankAccount)
+    {
+        bankAccount.IsEditing = true;
+    }
+
+    // Method to save changes and exit edit mode
+    private void SaveBankAccount(BankAccountDTO bankAccount)
+    {
+        bankAccount.IsEditing = false;
+        // Add logic to save the changes to the database if necessary
+    }
+
+    // Method to add the new bank account
+    private void AddNewBankAccount()
+    {
+        if (!string.IsNullOrWhiteSpace(newBankAccount.Name))
+        {
+            bankAccounts.Add(newBankAccount);
+            // Reset new bank account model for another entry
+            newBankAccount = new BankAccountDTO
+                {
+                    Name = string.Empty,
+                    Balance = 0,
+                    IsEditing = true // Keep the new account editable
+                };
         }
     }
 }

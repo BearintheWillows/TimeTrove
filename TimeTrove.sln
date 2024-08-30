@@ -1,8 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35209.166
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTrove", "TimeTrove\TimeTrove.csproj", "{8474677A-526A-42B8-8CE2-FD8E452ACA90}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTrove.Client", "TimeTrove.Client\TimeTrove.Client.csproj", "{260796C7-28A4-4487-8587-9813FEC04FD9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTrove.Tests", "TimeTrove.Tests\TimeTrove.Tests.csproj", "{976855F3-E48E-440E-869D-09CA60716315}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTrove.Client.Tests", "TimeTrove.Client.Tests\TimeTrove.Client.Tests.csproj", "{34B345CD-83A8-4105-977E-20F12A5E8A26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +25,19 @@ Global
 		{260796C7-28A4-4487-8587-9813FEC04FD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{260796C7-28A4-4487-8587-9813FEC04FD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{260796C7-28A4-4487-8587-9813FEC04FD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{976855F3-E48E-440E-869D-09CA60716315}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{976855F3-E48E-440E-869D-09CA60716315}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{976855F3-E48E-440E-869D-09CA60716315}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{976855F3-E48E-440E-869D-09CA60716315}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34B345CD-83A8-4105-977E-20F12A5E8A26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34B345CD-83A8-4105-977E-20F12A5E8A26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34B345CD-83A8-4105-977E-20F12A5E8A26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34B345CD-83A8-4105-977E-20F12A5E8A26}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6200FD97-AFF3-4E0B-8A21-B4ECACDF0FD1}
 	EndGlobalSection
 EndGlobal
