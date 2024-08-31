@@ -27,6 +27,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        BankAccountService.OnStateChanged += StateHasChanged;
         bankAccounts = await BankAccountService.GetBankAccounts();
     }
 
@@ -54,5 +55,10 @@
             bankAccounts.Add(bankAccount);
             newBankAccount = CreateNewBankAccount(); // Reset form for new bank account
         }
+    }
+
+    public void Dispose()
+    {
+        BankAccountService.OnStateChanged -= StateHasChanged;
     }
 }

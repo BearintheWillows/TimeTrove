@@ -30,7 +30,6 @@ public class BankAccountController : ControllerBase
             return BadRequest("Failed to create bank account");
         }
 
-        //Code 201 means 'Created'
         return Ok(result);
     }
     

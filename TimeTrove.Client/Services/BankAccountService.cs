@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 using TimeTrove.Client.Models;
+using TimeTrove.Client.Services;
 
 namespace TimeTrove.Client.Service
 {
-    public class BankAccountService
+    public class BankAccountService : StateServiceBase
     {
         private readonly HttpClient _httpClient;
+        public List<BankAccountDTO> BankAccountList { get; private set; } = new List<BankAccountDTO>();
 
         public BankAccountService(HttpClient httpClient)
         {
@@ -16,6 +18,9 @@ namespace TimeTrove.Client.Service
         public async Task<List<BankAccountDTO>> GetBankAccounts()
         {
             var response = await _httpClient.GetFromJsonAsync<List<BankAccountDTO>>(_httpClient.BaseAddress + "api/BankAccount");
+
+            NotifyStateChanged();
+
             return response ?? new List<BankAccountDTO>();
         }
 
@@ -32,6 +37,7 @@ namespace TimeTrove.Client.Service
 
             return newBankAccount;
         }
+
     }
 
 }
