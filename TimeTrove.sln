@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTrove.API", "TimeTrove.API\TimeTrove.API.csproj", "{2C2DE93C-B5EB-4A6D-9A21-1B25ACC0A1DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTrove.Core.Application", "TimeTrove.Core.Application\TimeTrove.Core.Application.csproj", "{FE645AC7-819D-4EC8-A4C8-1C4637DF57BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTrove.Core.Domain", "TimeTrove.Core.Domain\TimeTrove.Core.Domain.csproj", "{F18AAC88-8CD8-4C8D-A738-29D57972933B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTrove.Infrastructure", "TimeTrove.Infrastructure\TimeTrove.Infrastructure.csproj", "{B7001007-93FB-4EBA-B9C5-96E06D6135DE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2C2DE93C-B5EB-4A6D-9A21-1B25ACC0A1DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C2DE93C-B5EB-4A6D-9A21-1B25ACC0A1DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C2DE93C-B5EB-4A6D-9A21-1B25ACC0A1DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C2DE93C-B5EB-4A6D-9A21-1B25ACC0A1DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE645AC7-819D-4EC8-A4C8-1C4637DF57BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE645AC7-819D-4EC8-A4C8-1C4637DF57BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE645AC7-819D-4EC8-A4C8-1C4637DF57BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE645AC7-819D-4EC8-A4C8-1C4637DF57BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F18AAC88-8CD8-4C8D-A738-29D57972933B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F18AAC88-8CD8-4C8D-A738-29D57972933B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F18AAC88-8CD8-4C8D-A738-29D57972933B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F18AAC88-8CD8-4C8D-A738-29D57972933B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7001007-93FB-4EBA-B9C5-96E06D6135DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7001007-93FB-4EBA-B9C5-96E06D6135DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7001007-93FB-4EBA-B9C5-96E06D6135DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7001007-93FB-4EBA-B9C5-96E06D6135DE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
