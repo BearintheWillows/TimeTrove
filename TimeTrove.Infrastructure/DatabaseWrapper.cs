@@ -1,4 +1,5 @@
 ﻿using Npgsql;
+using TimeTrove.Infrastructure.Interfaces;
 
 namespace TimeTrove.Infrastructure;
 

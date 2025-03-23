@@ -1,6 +1,6 @@
 ﻿using Npgsql;
 
-namespace TimeTrove.Infrastructure;
+namespace TimeTrove.Infrastructure.Interfaces;
 
 public interface IDatabaseWrapper
 {

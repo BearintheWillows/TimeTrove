@@ -1,4 +1,5 @@
 using TimeTrove.Infrastructure;
+using TimeTrove.Infrastructure.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
