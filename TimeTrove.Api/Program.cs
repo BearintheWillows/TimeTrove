@@ -1,10 +1,9 @@
+using Scalar.AspNetCore;
 using Serilog;
-using Serilog.Templates;
-using Serilog.Templates.Themes;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
-    .WriteTo.File("Startup/Logs/log.txt")
+    .WriteTo.File("Startup/Logs/log-.txt")
     .CreateBootstrapLogger();
 
 Log.Information("Starting up");
@@ -28,6 +27,7 @@ try
     Log.Information("Configuring app");
     if (app.Environment.IsDevelopment())
     {
+        app.MapScalarApiReference();
         app.MapOpenApi();
     }
 
