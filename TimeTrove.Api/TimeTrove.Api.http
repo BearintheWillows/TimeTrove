@@ -1,0 +1,6 @@
+@TimeTrove.Api_HostAddress = http://localhost:5167
+
+GET {{TimeTrove.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

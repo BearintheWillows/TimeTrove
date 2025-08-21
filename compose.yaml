@@ -1,0 +1,7 @@
+﻿services:
+  timetrove.api:
+    image: timetrove.api
+    build:
+      context: .
+      dockerfile: TimeTrove.Api/Dockerfile
+
