@@ -1,23 +1,55 @@
-var builder = WebApplication.CreateBuilder(args);
+using Serilog;
+using Serilog.Templates;
+using Serilog.Templates.Themes;
 
-// Add services to the container.
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("Startup/Logs/log.txt")
+    .CreateBootstrapLogger();
 
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+Log.Information("Starting up");
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+try
 {
-    app.MapOpenApi();
+    var builder = WebApplication.CreateBuilder(args);
+
+    builder.Services.AddSerilog((services, lc) => lc
+        .ReadFrom.Configuration(builder.Configuration)
+        .ReadFrom.Services(services)
+        .Enrich.FromLogContext());
+
+    Log.Information("Adding services");
+    builder.Services.AddControllers();
+    builder.Services.AddOpenApi();
+
+    Log.Information("Building app");
+    var app = builder.Build();
+
+    Log.Information("Configuring app");
+    if (app.Environment.IsDevelopment())
+    {
+        app.MapOpenApi();
+    }
+
+    app.UseHttpsRedirection();
+
+    app.UseSerilogRequestLogging();
+
+    app.UseAuthorization();
+
+    app.MapControllers();
+
+    await app.RunAsync();
+
+    Log.Information("Shutting down");
+    return 0;
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+catch (Exception e)
+{
+    Log.Fatal(e, "Host terminated unexpectedly");
+    return 1;
+}
+finally
+{
+    Log.CloseAndFlush();
+}
