@@ -1,5 +1,6 @@
 using Scalar.AspNetCore;
 using Serilog;
+using TimeTrove.Api.Middleware;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -33,6 +34,7 @@ try
 
     app.UseHttpsRedirection();
 
+    app.UseMiddleware<CorrelationIdMiddleware>();
     app.UseSerilogRequestLogging();
 
     app.UseAuthorization();
