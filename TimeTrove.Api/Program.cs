@@ -13,14 +13,7 @@ try
 {
     var builder = WebApplication.CreateBuilder(args);
 
-    builder.Services.AddSerilog((services, lc) => lc
-        .ReadFrom.Configuration(builder.Configuration)
-        .ReadFrom.Services(services)
-        .Enrich.FromLogContext());
-
-    Log.Information("Adding services");
-    builder.Services.AddControllers();
-    builder.Services.AddOpenApi();
+    builder.Services.ApplicationServicesMiddleware(builder.Configuration);
 
     Log.Information("Building app");
     var app = builder.Build();
