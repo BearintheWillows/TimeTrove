@@ -6,4 +6,8 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\TimeTrove.Domain\TimeTrove.Domain.csproj" />
+	</ItemGroup>
+
 </Project>

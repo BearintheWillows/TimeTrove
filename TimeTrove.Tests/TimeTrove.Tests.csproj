@@ -18,4 +18,11 @@
 		<Using Include="Xunit"/>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\TimeTrove.Api\TimeTrove.Api.csproj" />
+	  <ProjectReference Include="..\TimeTrove.Application\TimeTrove.Application.csproj" />
+	  <ProjectReference Include="..\TimeTrove.Domain\TimeTrove.Domain.csproj" />
+	  <ProjectReference Include="..\TimeTrove.Infrastructure\TimeTrove.Infrastructure.csproj" />
+	</ItemGroup>
+
 </Project>

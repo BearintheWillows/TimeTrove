@@ -9,6 +9,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.3"/>
+		<PackageReference Include="Scalar.AspNetCore.Microsoft" Version="2.6.9" />
 		<PackageReference Include="Serilog" Version="4.3.1-dev-02373" />
 		<PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
 		<PackageReference Include="Serilog.Expressions" Version="5.1.0-dev-02301" />
@@ -22,6 +23,15 @@
 	  <Content Include="..\.dockerignore">
 	    <Link>.dockerignore</Link>
 	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Startup\Logs\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\TimeTrove.Application\TimeTrove.Application.csproj" />
+	  <ProjectReference Include="..\TimeTrove.Infrastructure\TimeTrove.Infrastructure.csproj" />
 	</ItemGroup>
 
 </Project>
