@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Scalar.AspNetCore;
 using Serilog;
 using TimeTrove.Api.Middleware;
@@ -17,6 +18,8 @@ try
 
     Log.Information("Building app");
     var app = builder.Build();
+
+    app.MapIdentityApi<IdentityUser>();
 
     Log.Information("Configuring app");
     if (app.Environment.IsDevelopment())

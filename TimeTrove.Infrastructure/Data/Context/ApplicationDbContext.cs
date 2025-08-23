@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using TimeTrove.Domain.Models;
 
 namespace TimeTrove.Infrastructure.Data.Context;
 
-public class ApplicationDbContext(IConfiguration configuration) : DbContext
+public class ApplicationDbContext(IConfiguration configuration) : IdentityDbContext<IdentityUser>
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

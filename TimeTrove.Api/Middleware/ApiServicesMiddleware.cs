@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using Microsoft.AspNetCore.Identity;
+using Serilog;
 using TimeTrove.Infrastructure.Data.Context;
 
 namespace TimeTrove.Api.Middleware;
@@ -16,7 +17,11 @@ public static class ServiceCollectionExtensions
             .Enrich.FromLogContext());
 
         Log.Information("Adding services");
+
+        services.AddIdentityApiEndpoints<IdentityUser>()
+            .AddEntityFrameworkStores<ApplicationDbContext>();
         services.AddControllers();
+        services.AddAuthentication();
         services.AddOpenApi();
 
         services.AddDbContext<ApplicationDbContext>(options => config.GetConnectionString("DefaultConnection"));
