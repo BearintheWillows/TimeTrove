@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Identity;
-using Scalar.AspNetCore;
 using Serilog;
 using TimeTrove.Api.Middleware;
 
@@ -16,6 +15,8 @@ try
 
     builder.Services.ApplicationServicesMiddleware(builder.Configuration);
 
+
+
     Log.Information("Building app");
     var app = builder.Build();
 
@@ -24,15 +25,16 @@ try
     Log.Information("Configuring app");
     if (app.Environment.IsDevelopment())
     {
-        app.MapScalarApiReference();
         app.MapOpenApi();
     }
+
+    app.UseCors("AllowVueApp");
 
     app.UseHttpsRedirection();
 
     app.UseMiddleware<CorrelationIdMiddleware>();
     app.UseSerilogRequestLogging();
-
+    app.UseAuthentication();
     app.UseAuthorization();
 
     app.MapControllers();
